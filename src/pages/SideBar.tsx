@@ -80,7 +80,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onCollapse }) => {
     <Authenticator>
       {() => (
         <div
-          className={`fixed left-0 top-0 h-screen w-[${isCollapsed ? "50px" : "250px"}] bg-[#1a1a1a] transition-[width] duration-300 p-4 text-[#e0e0e0] flex flex-col z-[1000] shadow-[2px_0_8px_rgba(0,0,0,0.2)] border-r border-[var(--border-color)] max-md:-translate-x-full max-md:show:translate-x-0`}
+          className={`fixed left-0 top-0 h-screen ${isCollapsed ? "50px" : "w-[250px]"} bg-[#1a1a1a] transition-[width] duration-300 p-4 text-[#e0e0e0] flex flex-col z-[1000] shadow-[2px_0_8px_rgba(0,0,0,0.2)] border-r border-[var(--border-color)] max-md:-translate-x-full max-md:show:translate-x-0`}
         >
           <div
             className="p-5 flex items-center justify-between border-b border-white/10 h-[70px] cursor-pointer transition-colors bg-transparent mb-8 hover:bg-white/10"
