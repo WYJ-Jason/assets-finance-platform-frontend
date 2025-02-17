@@ -1,11 +1,9 @@
 import { Authenticator } from "@aws-amplify/ui-react";
 import SideBar from "./SideBar";
 import { useState, useEffect, useRef } from "react";
-import { useParams, useSearchParams, useNavigate } from 'react-router-dom';
+import { useSearchParams, useNavigate } from 'react-router-dom';
 import axios from "axios";
-import { getCurrentUser } from "aws-amplify/auth";
 
-// 使用与 Applications.tsx 相同的接口定义
 interface PersonalDetails {
   _id: string;
   name: string;
