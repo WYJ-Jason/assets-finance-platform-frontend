@@ -133,15 +133,15 @@ const Sidebar: React.FC<SidebarProps> = ({ onCollapse }) => {
               )}
             </Link>
             <Link
-              to="/assets"
+              to="/applications"
               className={`group flex items-center gap-4 p-2 no-underline text-[#e0e0e0] hover:bg-white/10 hover:text-white relative ${isCollapsed ? "justify-center" : ""}`}
-              title="Assets"
+              title="Applications"
             >
               <FaChartBar className="text-[1.2rem] text-[#b0b0b0] translate-y-3 mb-6" />
-              {!isCollapsed && <span>Assets</span>}
+              {!isCollapsed && <span>Applications</span>}
               {isCollapsed && (
                 <span className="absolute left-full top-1/2 -translate-y-1/2 bg-gray-800 text-white text-sm px-2 py-1 rounded ml-2 opacity-0 invisible transition-all duration-300 group-hover:opacity-100 group-hover:visible">
-                  Assets
+                  Applications
                 </span>
               )}
             </Link>

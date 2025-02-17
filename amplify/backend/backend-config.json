@@ -1,5 +1,4 @@
 {
-  "api": {},
   "auth": {
     "assetsfinance5fb7ed72": {
       "customAuth": false,
@@ -28,6 +27,5 @@
       "providerPlugin": "awscloudformation",
       "service": "Cognito"
     }
-  },
-  "function": {}
+  }
 }
