@@ -4,8 +4,9 @@ import type { FC } from "react";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
-import Assets from "./pages/Assets";
-
+import Applications from "./pages/Applications";
+import CreateApplications from "./pages/CreateApplications";
+import ApplicationDetail from './pages/ApplicationDetail';
 
 const App: FC = () => {
   return (
@@ -22,10 +23,26 @@ const App: FC = () => {
             }
           />
           <Route
-            path="/assets"
+            path="/applications"
             element={
               <ProtectedRoute>
-                <Assets />
+                <Applications />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/create-application"
+            element={
+              <ProtectedRoute>
+                <CreateApplications />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/application"
+            element={
+              <ProtectedRoute>
+                <ApplicationDetail />
               </ProtectedRoute>
             }
           />
