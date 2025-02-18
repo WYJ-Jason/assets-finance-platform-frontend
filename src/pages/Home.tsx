@@ -52,13 +52,13 @@ const Home: React.FC = () => {
       <SideBar onCollapse={handleSidebarCollapse} />
       <div
         className={`flex-1 transition-margin duration-300 ease-in-out ${
-          sidebarCollapsed ? 'ml-20' : 'ml-64'
-        } bg-gray-100 min-h-screen`}
+          sidebarCollapsed ? 'md:ml-20' : 'md:ml-64'
+        } bg-gray-100 min-h-screen pt-16 md:pt-0`}
       >
         <Authenticator>
-          <div className="p-8 h-full">
+          <div className="p-4 md:p-8 h-full">
             <main className="h-full">
-              <div className="mb-8 p-10 bg-white rounded-lg shadow-md relative overflow-hidden">
+              <div className="mb-8 p-4 md:p-10 bg-white rounded-lg shadow-md relative overflow-hidden">
                 <div className="flex justify-between items-center mb-8">
                   <h1 className="text-2xl font-semibold text-gray-800">{getTitle()}</h1>
                   <a
@@ -89,7 +89,7 @@ const Home: React.FC = () => {
                   {userInfo ? `, ${userInfo.email}` : ''}
                 </p>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-8">
                   <div className="bg-blue-50 p-6 rounded-lg border border-blue-100">
                     <h3 className="text-blue-600 text-lg font-medium mb-2">Total Applications</h3>
                     <p className="text-3xl font-bold text-blue-700">24</p>

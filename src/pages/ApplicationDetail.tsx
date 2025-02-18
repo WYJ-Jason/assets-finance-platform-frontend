@@ -236,7 +236,7 @@ const ApplicationDetail: React.FC = () => {
         } bg-gray-100 min-h-screen`}
       >
         <Authenticator>
-          <div className="p-8 h-full">
+          <div className="p-4 md:p-8 h-full">
             {loading && (
               <div className="text-center py-4">
                 <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto"></div>
@@ -250,14 +250,14 @@ const ApplicationDetail: React.FC = () => {
             )}
 
             {application && (
-              <div className="space-y-6">
+              <div className="space-y-4 md:space-y-6">
                 {/* Back Button */}
                 <button
                   onClick={() => navigate('/applications')}
-                  className="flex items-center text-gray-900 font-semibold hover:text-blue-800 transition-colors duration-200 mb-4 cursor-pointer group"
+                  className="flex items-center text-gray-900 font-semibold hover:text-blue-800 transition-colors duration-200 mb-2 md:mb-4 cursor-pointer group text-sm md:text-base"
                 >
                   <svg
-                    className="w-5 h-5 mr-2 transform group-hover:-translate-x-1 transition-transform duration-200"
+                    className="w-4 h-4 md:w-5 md:h-5 mr-2 transform group-hover:-translate-x-1 transition-transform duration-200"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -274,13 +274,13 @@ const ApplicationDetail: React.FC = () => {
 
                 {/* Header with Personal Details */}
                 <div className="bg-white rounded-lg shadow-md overflow-hidden">
-                  <div className="bg-gradient-to-r from-blue-600 to-blue-800 text-white p-8">
-                    <div className="flex justify-between items-center">
+                  <div className="bg-gradient-to-r from-blue-600 to-blue-800 text-white p-4 md:p-8">
+                    <div className="flex flex-col md:flex-row justify-between items-start md:items-center">
                       <div>
-                        <h2 className="text-3xl font-bold mb-4">
+                        <h2 className="text-2xl md:text-3xl font-bold mb-2 md:mb-4">
                           {application.personalDetails.name}
                         </h2>
-                        <div className="space-y-2 text-blue-100">
+                        <div className="space-y-1 md:space-y-2 text-blue-100 text-sm md:text-base">
                           <div className="flex items-center">
                             <svg
                               className="w-5 h-5 mr-2"
@@ -331,7 +331,7 @@ const ApplicationDetail: React.FC = () => {
                           </div>
                         </div>
                       </div>
-                      <div className="flex flex-col gap-3">
+                      <div className="flex flex-col gap-2 md:gap-3 mt-4 md:mt-0">
                         <button
                           onClick={() => {
                             setIsEditing(true);
@@ -343,10 +343,10 @@ const ApplicationDetail: React.FC = () => {
                               });
                             }, 100);
                           }}
-                          className="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg flex items-center transition-all duration-200 transform hover:scale-105 cursor-pointer"
+                          className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg flex items-center justify-center transition-all duration-200 transform hover:scale-105 cursor-pointer text-sm md:text-base"
                         >
                           <svg
-                            className="w-5 h-5 mr-2"
+                            className="w-4 h-4 md:w-5 md:h-5 mr-2"
                             fill="none"
                             stroke="currentColor"
                             viewBox="0 0 24 24"
@@ -362,10 +362,10 @@ const ApplicationDetail: React.FC = () => {
                         </button>
                         <button
                           onClick={handleDelete}
-                          className="bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded-lg flex items-center transition-all duration-200 transform hover:scale-105 cursor-pointer"
+                          className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg flex items-center justify-center transition-all duration-200 transform hover:scale-105 cursor-pointer text-sm md:text-base"
                         >
                           <svg
-                            className="w-5 h-5 mr-2"
+                            className="w-4 h-4 md:w-5 md:h-5 mr-2"
                             fill="none"
                             stroke="currentColor"
                             viewBox="0 0 24 24"
@@ -384,8 +384,8 @@ const ApplicationDetail: React.FC = () => {
                   </div>
 
                   {/* Financial Summary Cards */}
-                  <div className="p-8">
-                    <div className="grid grid-cols-2 gap-6 mb-8">
+                  <div className="p-4 md:p-8">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mb-4 md:mb-8">
                       <div className="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-xl">
                         <h3 className="text-green-800 text-lg font-medium mb-2">Total Assets</h3>
                         <p className="text-3xl font-bold text-green-700">
@@ -401,7 +401,7 @@ const ApplicationDetail: React.FC = () => {
                     </div>
 
                     {/* Assets & Liabilities Section */}
-                    <div className="grid md:grid-cols-2 gap-8">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
                       <div className={cardClass}>
                         <h3 className={sectionHeaderClass}>
                           <svg
@@ -466,7 +466,7 @@ const ApplicationDetail: React.FC = () => {
                     </div>
 
                     {/* Income & Expenses Section */}
-                    <div className="grid md:grid-cols-2 gap-8 mt-8">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 mt-4 md:mt-8">
                       <div className={cardClass}>
                         <h3 className={sectionHeaderClass}>
                           <svg
@@ -538,16 +538,16 @@ const ApplicationDetail: React.FC = () => {
 
                 {/* Edit Form Styling */}
                 {isEditing && editedApplication && (
-                  <div ref={editFormRef} className="mt-8 bg-white rounded-lg shadow-lg p-8">
-                    <div className="flex justify-between items-center mb-6">
-                      <h3 className="text-2xl font-bold text-gray-800">Update Application</h3>
-                      <div className="flex gap-3">
+                  <div ref={editFormRef} className="mt-4 md:mt-8 bg-white rounded-lg shadow-lg p-4 md:p-8">
+                    <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-4 md:mb-6">
+                      <h3 className="text-xl md:text-2xl font-bold text-gray-800 mb-2 md:mb-0">Update Application</h3>
+                      <div className="flex flex-col md:flex-row gap-2 md:gap-3 w-full md:w-auto">
                         <button
                           onClick={handleUpdate}
-                          className="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg flex items-center transition-colors duration-200 cursor-pointer"
+                          className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg flex items-center justify-center transition-colors duration-200 cursor-pointer text-sm md:text-base"
                         >
                           <svg
-                            className="w-5 h-5 mr-2"
+                            className="w-4 h-4 md:w-5 md:h-5 mr-2"
                             fill="none"
                             stroke="currentColor"
                             viewBox="0 0 24 24"
@@ -563,10 +563,10 @@ const ApplicationDetail: React.FC = () => {
                         </button>
                         <button
                           onClick={() => setIsEditing(false)}
-                          className="bg-gray-500 hover:bg-gray-600 text-white px-6 py-2 rounded-lg flex items-center transition-colors duration-200 cursor-pointer"
+                          className="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg flex items-center justify-center transition-colors duration-200 cursor-pointer text-sm md:text-base"
                         >
                           <svg
-                            className="w-5 h-5 mr-2"
+                            className="w-4 h-4 md:w-5 md:h-5 mr-2"
                             fill="none"
                             stroke="currentColor"
                             viewBox="0 0 24 24"
@@ -584,13 +584,11 @@ const ApplicationDetail: React.FC = () => {
                     </div>
 
                     {/* Edit Form Content */}
-                    <div className="space-y-8">
+                    <div className="space-y-4 md:space-y-8">
                       {/* Personal Details Form */}
-                      <div className="bg-gray-50 p-6 rounded-lg">
-                        <h4 className="text-lg font-semibold text-gray-800 mb-4">
-                          Personal Details
-                        </h4>
-                        <div className="grid grid-cols-3 gap-6">
+                      <div className="bg-gray-50 p-4 md:p-6 rounded-lg">
+                        <h4 className="text-base md:text-lg font-semibold text-gray-800 mb-2 md:mb-4">Personal Details</h4>
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                           <div>
                             <label className="block text-sm font-medium text-gray-700">Name</label>
                             <input
@@ -646,7 +644,7 @@ const ApplicationDetail: React.FC = () => {
                       </div>
 
                       {/* Income Section */}
-                      <div className="bg-gray-50 p-6 rounded-lg">
+                      <div className="bg-gray-50 p-4 md:p-6 rounded-lg">
                         <div className="flex justify-between items-center mb-4">
                           <h4 className="text-lg font-semibold text-gray-800">Income</h4>
                           <button
@@ -760,7 +758,7 @@ const ApplicationDetail: React.FC = () => {
                       </div>
 
                       {/* Expenses Section */}
-                      <div className="bg-gray-50 p-6 rounded-lg">
+                      <div className="bg-gray-50 p-4 md:p-6 rounded-lg">
                         <div className="flex justify-between items-center mb-4">
                           <h4 className="text-lg font-semibold text-gray-800">Expenses</h4>
                           <button
@@ -877,7 +875,7 @@ const ApplicationDetail: React.FC = () => {
                       </div>
 
                       {/* Assets Section */}
-                      <div className="bg-gray-50 p-6 rounded-lg">
+                      <div className="bg-gray-50 p-4 md:p-6 rounded-lg">
                         <div className="flex justify-between items-center mb-4">
                           <h4 className="text-lg font-semibold text-gray-800">Assets</h4>
                           <button
@@ -970,7 +968,7 @@ const ApplicationDetail: React.FC = () => {
                       </div>
 
                       {/* Liabilities Section */}
-                      <div className="bg-gray-50 p-6 rounded-lg">
+                      <div className="bg-gray-50 p-4 md:p-6 rounded-lg">
                         <div className="flex justify-between items-center mb-4">
                           <h4 className="text-lg font-semibold text-gray-800">Liabilities</h4>
                           <button
