@@ -65,7 +65,7 @@ const Applications: React.FC = () => {
 
       if (userEmail) {
         setLoading(true);
-        const response = await axios.get(`${import.meta.env.VITE_API_ENDPOINT}/read-apps`);
+        const response = await axios.get(`${import.meta.env.VITE_API_ENDPOINT}read-apps?email=${userEmail}`);
 
         setApplications(response.data);
         setLoading(false);
@@ -94,7 +94,7 @@ const Applications: React.FC = () => {
     e.stopPropagation();
     if (window.confirm('Are you sure you want to delete this application?')) {
       try {
-        await axios.delete(`${import.meta.env.VITE_API_ENDPOINT}/delete-apps?id=${applicationId}`, {
+        await axios.delete(`${import.meta.env.VITE_API_ENDPOINT}delete-apps?id=${applicationId}`, {
           headers: {
             'Content-Type': 'application/json',
             Accept: 'application/json',
