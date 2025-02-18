@@ -31,73 +31,6 @@ interface FormData {
   }[];
 }
 
-const validatePersonalDetails = (details: FormData['personalDetails']): string[] => {
-  const errors: string[] = [];
-  if (!details.name.trim()) errors.push('Name is required');
-  if (!details.age || details.age < 18) errors.push('Age must be 18 or older');
-  if (!details.email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) errors.push('Valid email is required');
-  return errors;
-};
-
-const validateIncome = (income: FormData['income']): string[] => {
-  const errors: string[] = [];
-  income.forEach((item, index) => {
-    if (!item.source.trim()) errors.push(`Income source ${index + 1} is required`);
-    if (!item.amount || item.amount <= 0)
-      errors.push(`Income amount ${index + 1} must be greater than 0`);
-    if (!item.date) errors.push(`Date for income ${index + 1} is required`);
-  });
-  return errors;
-};
-
-const validateExpenses = (expenses: FormData['expenses']): string[] => {
-  const errors: string[] = [];
-  expenses.forEach((item, index) => {
-    if (!item.description.trim()) errors.push(`Expense description ${index + 1} is required`);
-    if (!item.amount || item.amount <= 0)
-      errors.push(`Expense amount ${index + 1} must be greater than 0`);
-    if (!item.date) errors.push(`Date for expense ${index + 1} is required`);
-  });
-  return errors;
-};
-
-const validateAssets = (assets: FormData['assets']): string[] => {
-  const errors: string[] = [];
-  assets.forEach((item, index) => {
-    if (!item.description.trim()) errors.push(`Asset description ${index + 1} is required`);
-    if (!item.value || item.value <= 0)
-      errors.push(`Asset value ${index + 1} must be greater than 0`);
-  });
-  return errors;
-};
-
-const validateLiabilities = (liabilities: FormData['liabilities']): string[] => {
-  const errors: string[] = [];
-  liabilities.forEach((item, index) => {
-    if (!item.description.trim()) errors.push(`Liability description ${index + 1} is required`);
-    if (!item.amount || item.amount <= 0)
-      errors.push(`Liability amount ${index + 1} must be greater than 0`);
-  });
-  return errors;
-};
-
-const isStepComplete = (step: number, data: FormData): boolean => {
-  switch (step) {
-    case 1:
-      return validatePersonalDetails(data.personalDetails).length === 0;
-    case 2:
-      return validateIncome(data.income).length === 0;
-    case 3:
-      return validateExpenses(data.expenses).length === 0;
-    case 4:
-      return validateAssets(data.assets).length === 0;
-    case 5:
-      return validateLiabilities(data.liabilities).length === 0;
-    default:
-      return false;
-  }
-};
-
 const saveFormProgress = (data: FormData) => {
   try {
     localStorage.setItem('applicationFormProgress', JSON.stringify(data));
@@ -139,10 +72,10 @@ const CreateApplications: React.FC = () => {
         age: null,
         email: '',
       },
-      income: [{ source: '', amount: null, date: '' }],
-      expenses: [{ description: '', amount: null, date: '' }],
-      assets: [{ description: '', value: null }],
-      liabilities: [{ description: '', amount: null }],
+      income: [],
+      expenses: [],
+      assets: [],
+      liabilities: [],
     };
   });
 
@@ -238,42 +171,12 @@ const CreateApplications: React.FC = () => {
   };
 
   const handleNextStep = () => {
-    let errors: string[] = [];
-
-    switch (currentStep) {
-      case 1:
-        errors = validatePersonalDetails(formData.personalDetails);
-        break;
-      case 2:
-        errors = validateIncome(formData.income);
-        break;
-      case 3:
-        errors = validateExpenses(formData.expenses);
-        break;
-      case 4:
-        errors = validateAssets(formData.assets);
-        break;
-      case 5:
-        errors = validateLiabilities(formData.liabilities);
-        break;
+    if (currentStep < 5) {
+      setCurrentStep(currentStep + 1);
     }
-
-    if (errors.length > 0) {
-      setValidationErrors(errors);
-      return;
-    }
-
-    setValidationErrors([]);
-    setCurrentStep(currentStep + 1);
   };
 
   const handleSubmit = async () => {
-    const errors = validateLiabilities(formData.liabilities);
-    if (errors.length > 0) {
-      setValidationErrors(errors);
-      return;
-    }
-
     try {
       const currentUser = await getCurrentUser();
       const userEmail = currentUser.signInDetails?.loginId || '';
@@ -304,7 +207,7 @@ const CreateApplications: React.FC = () => {
       };
 
       const response = await axios.post(
-        `${import.meta.env.VITE_API_ENDPOINT}/create-apps`,
+        `${import.meta.env.VITE_API_ENDPOINT}create-apps`,
         submissionData,
         {
           headers: {
@@ -611,8 +514,7 @@ const CreateApplications: React.FC = () => {
             { step: 4, label: 'Assets' },
             { step: 5, label: 'Liabilities' },
           ].map(({ step, label }) => {
-            const isCompleted = isStepComplete(step, formData);
-            const isClickable = step <= currentStep || isCompleted;
+            const isClickable = step <= currentStep;
 
             return (
               <div key={step} className="flex flex-col items-center">
@@ -624,17 +526,15 @@ const CreateApplications: React.FC = () => {
                     ${
                       step === currentStep
                         ? 'bg-blue-600 text-white shadow-lg scale-110 cursor-default'
-                        : isCompleted
+                        : step < currentStep
                           ? 'bg-green-500 text-white cursor-pointer'
-                          : step < currentStep
-                            ? 'bg-yellow-500 text-white cursor-pointer'
-                            : 'bg-white border-2 border-gray-300 text-gray-600 cursor-not-allowed opacity-50'
+                          : 'bg-white border-2 border-gray-300 text-gray-600 cursor-not-allowed opacity-50'
                     }
                   `}
                   disabled={!isClickable}
                   title={!isClickable ? 'Complete previous steps first' : ''}
                 >
-                  {isCompleted ? (
+                  {step < currentStep ? (
                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path
                         strokeLinecap="round"
@@ -651,7 +551,7 @@ const CreateApplications: React.FC = () => {
                   className={`mt-2 text-sm font-medium ${
                     step === currentStep
                       ? 'text-blue-600'
-                      : isCompleted
+                      : step < currentStep
                         ? 'text-green-600'
                         : 'text-gray-500'
                   }`}

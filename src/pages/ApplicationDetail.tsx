@@ -112,7 +112,7 @@ const ApplicationDetail: React.FC = () => {
   const handleDelete = async () => {
     if (window.confirm('Are you sure you want to delete this application?')) {
       try {
-        await axios.delete(`${import.meta.env.VITE_API_ENDPOINT}/delete-apps?id=${id}`);
+        await axios.delete(`${import.meta.env.VITE_API_ENDPOINT}delete-apps?id=${id}`);
         navigate('/applications');
       } catch (error) {
         console.error('Error deleting application:', error);
@@ -153,7 +153,7 @@ const ApplicationDetail: React.FC = () => {
       };
 
       const response = await axios.put(
-        `${import.meta.env.VITE_API_ENDPOINT}/update-apps`,
+        `${import.meta.env.VITE_API_ENDPOINT}update-apps`,
         {
           id: id,
           updateData: formattedApplication,
