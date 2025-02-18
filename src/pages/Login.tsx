@@ -4,11 +4,11 @@ import '@aws-amplify/ui-react/styles.css';
 
 const Login: React.FC = () => {
   return (
-    <div className="flex min-h-screen bg-white">
+    <div className="flex flex-col md:flex-row min-h-screen bg-white">
       <div className="flex-1 flex flex-col justify-center items-center bg-gray-100 p-8">
-        <h2 className="mb-12 text-2xl font-bold">Welcome to Assets Finance Platform</h2>
+        <h2 className="mb-12 text-2xl font-bold text-center">Welcome to Assets Finance Platform</h2>
         <Image src="/banner1.png" alt="login banner" className="max-w-80 h-auto object-contain" />
-        <p className="mt-4">
+        <p className="mt-4 text-center text-sm">
           &copy; {new Date().getFullYear()} Developed and Supported by Yanjie(Jason) Wu. All rights
           reserved.
         </p>

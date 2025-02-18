@@ -590,14 +590,14 @@ const CreateApplications: React.FC = () => {
         } bg-gray-100 min-h-screen`}
       >
         <Authenticator>
-          <div className="p-8 h-full">
+          <div className="p-4 md:p-8 h-full">
             <div className="max-w-4xl mx-auto">
               <button
                 onClick={() => navigate('/applications')}
-                className="flex items-center text-gray-900 font-semibold hover:text-blue-800 transition-colors duration-200 mb-4 cursor-pointer group"
+                className="flex items-center text-gray-900 font-semibold hover:text-blue-800 transition-colors duration-200 mb-2 md:mb-4 cursor-pointer group text-sm md:text-base"
               >
                 <svg
-                  className="w-5 h-5 mr-2 transform group-hover:-translate-x-1 transition-transform duration-200"
+                  className="w-4 h-4 md:w-5 md:h-5 mr-2 transform group-hover:-translate-x-1 transition-transform duration-200"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -612,8 +612,8 @@ const CreateApplications: React.FC = () => {
                 Back to Applications
               </button>
 
-              <div className="bg-white rounded-xl shadow-lg p-8">
-                <h1 className="text-3xl font-bold text-gray-800 mb-8 text-center">
+              <div className="bg-white rounded-xl shadow-lg p-4 md:p-8">
+                <h1 className="text-2xl md:text-3xl font-bold text-gray-800 mb-4 md:mb-8 text-center">
                   Create New Application
                 </h1>
 
@@ -623,14 +623,14 @@ const CreateApplications: React.FC = () => {
                   <ValidationErrors />
                   {renderStep()}
 
-                  <div className="mt-8 flex justify-between pt-6 border-t">
+                  <div className="mt-6 md:mt-8 flex justify-between pt-4 md:pt-6 border-t">
                     {currentStep > 1 && (
                       <button
                         onClick={() => setCurrentStep(currentStep - 1)}
-                        className="px-6 py-2.5 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors duration-300 flex items-center cursor-pointer"
+                        className="px-4 md:px-6 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors duration-300 flex items-center cursor-pointer text-sm md:text-base"
                       >
                         <svg
-                          className="w-5 h-5 mr-2"
+                          className="w-4 h-4 md:w-5 md:h-5 mr-2"
                           fill="none"
                           stroke="currentColor"
                           viewBox="0 0 24 24"
@@ -648,11 +648,11 @@ const CreateApplications: React.FC = () => {
                     {currentStep < 5 ? (
                       <button
                         onClick={handleNextStep}
-                        className="px-6 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-300 flex items-center ml-auto cursor-pointer"
+                        className="px-4 md:px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-300 flex items-center ml-auto cursor-pointer text-sm md:text-base"
                       >
                         Next
                         <svg
-                          className="w-5 h-5 ml-2"
+                          className="w-4 h-4 md:w-5 md:h-5 ml-2"
                           fill="none"
                           stroke="currentColor"
                           viewBox="0 0 24 24"
@@ -668,11 +668,11 @@ const CreateApplications: React.FC = () => {
                     ) : (
                       <button
                         onClick={handleSubmit}
-                        className="px-6 py-2.5 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors duration-300 flex items-center ml-auto cursor-pointer"
+                        className="px-4 md:px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors duration-300 flex items-center ml-auto cursor-pointer text-sm md:text-base"
                       >
                         Submit Application
                         <svg
-                          className="w-5 h-5 ml-2"
+                          className="w-4 h-4 md:w-5 md:h-5 ml-2"
                           fill="none"
                           stroke="currentColor"
                           viewBox="0 0 24 24"

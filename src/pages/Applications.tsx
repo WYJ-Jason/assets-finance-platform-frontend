@@ -143,21 +143,21 @@ const Applications: React.FC = () => {
         } bg-gray-50 min-h-screen`}
       >
         <Authenticator>
-          <div className="p-8 h-full">
-            <main className="h-full space-y-6">
-              <div className="flex justify-between items-center mb-8">
-                <div>
-                  <h1 className="text-3xl font-bold text-gray-800 mb-2">Financial Applications</h1>
-                  <p className="text-gray-600">Manage and review your financial applications</p>
+          <div className="p-4 md:p-8 h-full">
+            <main className="h-full space-y-4 md:space-y-6">
+              <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-4 md:mb-8">
+                <div className="mb-4 md:mb-0">
+                  <h1 className="text-2xl md:text-3xl font-bold text-gray-800 mb-2">Financial Applications</h1>
+                  <p className="text-sm md:text-base text-gray-600">Manage and review your financial applications</p>
                 </div>
                 <button
                   onClick={() => navigate('/create-application')}
-                  className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg flex items-center transition-all duration-200 shadow-md hover:shadow-lg cursor-pointer"
+                  className="w-full md:w-auto bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 md:px-6 rounded-lg flex items-center justify-center transition-all duration-200 shadow-md hover:shadow-lg cursor-pointer text-sm md:text-base"
                 >
                   <span className="mr-2">Create</span>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="h-5 w-5"
+                    className="h-4 w-4 md:h-5 md:w-5"
                     viewBox="0 0 20 20"
                     fill="currentColor"
                   >
@@ -197,25 +197,25 @@ const Applications: React.FC = () => {
                 </div>
               )}
 
-              <div className="grid gap-6">
+              <div className="grid gap-4 md:gap-6">
                 {applications.map(app => (
                   <div
                     key={app._id}
                     className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-200 border border-gray-100"
                   >
-                    <div className="flex justify-between items-center p-6">
+                    <div className="flex flex-col md:flex-row justify-between items-start md:items-center p-4 md:p-6">
                       <div
-                        className="flex-1 cursor-pointer"
+                        className="flex-1 cursor-pointer w-full"
                         onClick={() => navigateToApplication(app._id)}
                       >
-                        <div className="space-y-3">
-                          <h2 className="text-2xl font-semibold text-gray-800 flex items-center">
+                        <div className="space-y-2 md:space-y-3">
+                          <h2 className="text-xl md:text-2xl font-semibold text-gray-800 flex items-center">
                             {app.personalDetails.name}
                           </h2>
-                          <div className="flex space-x-6 text-gray-600">
+                          <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-6 text-gray-600 text-sm md:text-base">
                             <div className="flex items-center">
                               <svg
-                                className="h-5 w-5 mr-2 text-gray-400"
+                                className="h-4 w-4 md:h-5 md:w-5 mr-2 text-gray-400"
                                 fill="none"
                                 viewBox="0 0 24 24"
                                 stroke="currentColor"
@@ -231,7 +231,7 @@ const Applications: React.FC = () => {
                             </div>
                             <div className="flex items-center">
                               <svg
-                                className="h-5 w-5 mr-2 text-gray-400"
+                                className="h-4 w-4 md:h-5 md:w-5 mr-2 text-gray-400"
                                 fill="none"
                                 viewBox="0 0 24 24"
                                 stroke="currentColor"
@@ -246,9 +246,9 @@ const Applications: React.FC = () => {
                               <span>{app.personalDetails.email}</span>
                             </div>
                           </div>
-                          <div className="text-sm text-gray-500 flex items-center">
+                          <div className="text-xs md:text-sm text-gray-500 flex items-center">
                             <svg
-                              className="h-4 w-4 mr-1 text-gray-400"
+                              className="h-3 w-3 md:h-4 md:w-4 mr-1 text-gray-400"
                               fill="none"
                               viewBox="0 0 24 24"
                               stroke="currentColor"
@@ -264,7 +264,7 @@ const Applications: React.FC = () => {
                           </div>
                         </div>
                       </div>
-                      <div className="flex items-center space-x-4">
+                      <div className="flex items-center space-x-4 mt-4 md:mt-0">
                         <button
                           onClick={e => handleDelete(app._id, e)}
                           className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors duration-200 cursor-pointer"
