@@ -38,14 +38,13 @@ npm install
 
 
 
-### 4. Configure Environment Variables
-Create a `.env` file in the frontend root directory:
+### 4. Environment Variables
 ```env
 # For local development:
-VITE_API_ENDPOINT=http://localhost:3000
+# VITE_API_ENDPOINT=http://localhost:3000
 
 # For production use:
-# VITE_API_ENDPOINT=https://0diq7qih77.execute-api.ap-southeast-2.amazonaws.com/Prod/
+VITE_API_ENDPOINT=https://0diq7qih77.execute-api.ap-southeast-2.amazonaws.com/Prod/
 ```
 
 

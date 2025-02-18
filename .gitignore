@@ -23,6 +23,27 @@ dist-ssr
 *.sln
 *.sw?
 
+# Environment Variables
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+
+# Build output
+build/
+dist/
+out/
+
+# Cache
+.cache/
+.temp/
+.eslintcache
+.stylelintcache
+
+# Coverage directory
+coverage/
+
 #amplify-do-not-edit-begin
 amplify/\#current-cloud-backend
 amplify/.config/local-*

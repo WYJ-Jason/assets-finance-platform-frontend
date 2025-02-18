@@ -485,7 +485,7 @@ const ApplicationDetail: React.FC = () => {
                           Income
                         </h3>
                         <div className="space-y-3">
-                          {application.income.map((income, index) => (
+                          {application.income.map(income => (
                             <div key={income._id} className={itemClass}>
                               <div className="flex justify-between items-center mb-1">
                                 <span className="text-gray-700">{income.source}</span>
@@ -517,7 +517,7 @@ const ApplicationDetail: React.FC = () => {
                           Expenses
                         </h3>
                         <div className="space-y-3">
-                          {application.expenses.map((expense, index) => (
+                          {application.expenses.map(expense => (
                             <div key={expense._id} className={itemClass}>
                               <div className="flex justify-between items-center mb-1">
                                 <span className="text-gray-700">{expense.description}</span>
