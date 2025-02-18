@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
-import { getCurrentUser } from "aws-amplify/auth";
-import { useNavigate } from "react-router-dom";
-import React from "react";
+import { useEffect, useState } from 'react';
+import { getCurrentUser } from 'aws-amplify/auth';
+import { useNavigate } from 'react-router-dom';
+import React from 'react';
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
@@ -21,8 +21,8 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
       await getCurrentUser();
       setIsAuthenticated(true);
     } catch (error) {
-      console.log("User not logged in");
-      navigate("/");
+      console.log('User not logged in');
+      navigate('/');
     } finally {
       setIsLoading(false);
     }
