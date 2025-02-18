@@ -1,14 +1,8 @@
-import { Authenticator, Image } from "@aws-amplify/ui-react";
-import { useNavigate, Link } from "react-router-dom";
-import { signOut, getCurrentUser } from "aws-amplify/auth";
-import { useState, useEffect } from "react";
-import {
-  FaHome,
-  FaSignOutAlt,
-  FaBars,
-  FaChevronLeft,
-  FaChartBar,
-} from "react-icons/fa";
+import { Authenticator, Image } from '@aws-amplify/ui-react';
+import { useNavigate, Link } from 'react-router-dom';
+import { signOut, getCurrentUser } from 'aws-amplify/auth';
+import { useState, useEffect } from 'react';
+import { FaHome, FaSignOutAlt, FaBars, FaChevronLeft, FaChartBar } from 'react-icons/fa';
 
 interface SidebarProps {
   onCollapse?: (collapsed: boolean) => void;
@@ -39,12 +33,12 @@ const Sidebar: React.FC<SidebarProps> = ({ onCollapse }) => {
         const currentUser = await getCurrentUser();
         setUserInfo({
           id: currentUser.userId,
-          email: currentUser.signInDetails?.loginId || "",
-          role: "User",
+          email: currentUser.signInDetails?.loginId || '',
+          role: 'User',
         });
       } catch (error) {
-        console.error("Error:", error);
-        setError("Failed to fetch user information");
+        console.error('Error:', error);
+        setError('Failed to fetch user information');
         setUserInfo(null);
       } finally {
         setIsLoading(false);
@@ -64,28 +58,28 @@ const Sidebar: React.FC<SidebarProps> = ({ onCollapse }) => {
   const handleSignOut = async () => {
     try {
       await signOut();
-      navigate("/");
+      navigate('/');
     } catch (error) {
-      console.error("Sign out error:", error);
+      console.error('Sign out error:', error);
     }
   };
 
   const renderUserInfo = () => {
     if (isLoading) return <span className="text-gray-400">Loading...</span>;
     if (error) return <span className="text-red-500">{error}</span>;
-    return <span>{userInfo?.email || "User"}</span>;
+    return <span>{userInfo?.email || 'User'}</span>;
   };
 
   return (
     <Authenticator>
       {() => (
         <div
-          className={`fixed left-0 top-0 h-screen ${isCollapsed ? "50px" : "w-[250px]"} bg-[#1a1a1a] transition-[width] duration-300 p-4 text-[#e0e0e0] flex flex-col z-[1000] shadow-[2px_0_8px_rgba(0,0,0,0.2)] border-r border-[var(--border-color)] max-md:-translate-x-full max-md:show:translate-x-0`}
+          className={`fixed left-0 top-0 h-screen ${isCollapsed ? '50px' : 'w-[250px]'} bg-[#1a1a1a] transition-[width] duration-300 p-4 text-[#e0e0e0] flex flex-col z-[1000] shadow-[2px_0_8px_rgba(0,0,0,0.2)] border-r border-[var(--border-color)] max-md:-translate-x-full max-md:show:translate-x-0`}
         >
           <div
             className="p-5 flex items-center justify-between border-b border-white/10 h-[70px] cursor-pointer transition-colors bg-transparent mb-8 hover:bg-white/10"
             onClick={handleCollapse}
-            title={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
+            title={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
           >
             {isCollapsed ? (
               <FaBars className="text-[1.5rem] text-gray-400 transition-colors hover:text-white" />
@@ -94,25 +88,23 @@ const Sidebar: React.FC<SidebarProps> = ({ onCollapse }) => {
                 <h2 className="m-0 text-[1.2rem] text-white text-center break-words max-w-[200px]">
                   Assets Finance Platform
                 </h2>
-                <FaChevronLeft className={`text-[1rem] text-gray-400 transition-transform ${isCollapsed ? "-rotate-180" : ""}`} />
+                <FaChevronLeft
+                  className={`text-[1rem] text-gray-400 transition-transform ${isCollapsed ? '-rotate-180' : ''}`}
+                />
               </div>
             )}
           </div>
 
           <div
             className={`p-5 border-b border-white/10 transition-all ${
-              isCollapsed ? "p-2.5 flex justify-center" : ""
+              isCollapsed ? 'p-2.5 flex justify-center' : ''
             }`}
           >
             <div className="flex flex-col gap-1 items-center text-center">
               {!isCollapsed && (
                 <>
-                  <span className="font-bold text-[0.9rem] text-white">
-                    {renderUserInfo()}
-                  </span>
-                  <span className="text-[0.8rem] text-[#b0b0b0]">
-                    {userInfo?.role || "User"}
-                  </span>
+                  <span className="font-bold text-[0.9rem] text-white">{renderUserInfo()}</span>
+                  <span className="text-[0.8rem] text-[#b0b0b0]">{userInfo?.role || 'User'}</span>
                 </>
               )}
             </div>
@@ -121,7 +113,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onCollapse }) => {
           <nav className="flex-1 py-5">
             <Link
               to="/home"
-              className={`group flex items-center gap-4 p-2 no-underline text-[#e0e0e0] hover:bg-white/10 hover:text-white relative ${isCollapsed ? "justify-center" : ""}`}
+              className={`group flex items-center gap-4 p-2 no-underline text-[#e0e0e0] hover:bg-white/10 hover:text-white relative ${isCollapsed ? 'justify-center' : ''}`}
               title="Home"
             >
               <FaHome className="text-[1.2rem] text-[#b0b0b0] translate-y-3 mb-6" />
@@ -134,7 +126,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onCollapse }) => {
             </Link>
             <Link
               to="/applications"
-              className={`group flex items-center gap-4 p-2 no-underline text-[#e0e0e0] hover:bg-white/10 hover:text-white relative ${isCollapsed ? "justify-center" : ""}`}
+              className={`group flex items-center gap-4 p-2 no-underline text-[#e0e0e0] hover:bg-white/10 hover:text-white relative ${isCollapsed ? 'justify-center' : ''}`}
               title="Applications"
             >
               <FaChartBar className="text-[1.2rem] text-[#b0b0b0] translate-y-3 mb-6" />

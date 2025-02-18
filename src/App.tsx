@@ -1,11 +1,11 @@
-import "./App.css";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import type { FC } from "react";
-import ProtectedRoute from "./components/ProtectedRoute";
-import Home from "./pages/Home";
-import Login from "./pages/Login";
-import Applications from "./pages/Applications";
-import CreateApplications from "./pages/CreateApplications";
+import './App.css';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import type { FC } from 'react';
+import ProtectedRoute from './components/ProtectedRoute';
+import Home from './pages/Home';
+import Login from './pages/Login';
+import Applications from './pages/Applications';
+import CreateApplications from './pages/CreateApplications';
 import ApplicationDetail from './pages/ApplicationDetail';
 
 const App: FC = () => {

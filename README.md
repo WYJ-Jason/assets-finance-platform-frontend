@@ -1,50 +1,67 @@
-# React + TypeScript + Vite
+# Assets Finance Platform
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern web application for managing financial applications and assets, built with React and AWS Amplify.
 
-Currently, two official plugins are available:
+This project is also deployed on AWS Amplify and can be accessed via https://main.d3rbq98slafjb4.amplifyapp.com
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
+- User authentication with AWS Cognito
+- CRUD operations for financial applications
+- Responsive UI with Tailwind CSS
+- Form validation and progress saving
 
-## Expanding the ESLint configuration
+## Technologies
+- React 19
+- TypeScript 5.7
+- AWS Amplify (Authentication)
+- Tailwind CSS
+- React Router
+- Vite
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Local Development Setup
 
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+### 1. Clone repository
+```bash
+git clone https://github.com/WYJ-Jason/assets-finance-platform-frontend.git
+cd assets-finance-platform-frontend
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+### 2. Install dependencies
+```bash
+npm install
 ```
+
+### 3. Start backend server
+- You can deploy the backend code via [assets-finance-platform-backend](https://github.com/WYJ-Jason/assets-finance-platform-backend.git) and run it locally (How to deploy the backend server can be found in the backend repository) 
+- You can also use the production api endpoint (Exposing the api endpoint is for interview purposes only)
+- You can find the api documentation at [API Documentation](https://documenter.getpostman.com/view/36825287/2sAYXFiHWX)
+
+
+
+### 4. Environment Variables
+```env
+# For local development:
+# VITE_API_ENDPOINT=http://localhost:3000
+
+# For production use:
+VITE_API_ENDPOINT=https://0diq7qih77.execute-api.ap-southeast-2.amazonaws.com/Prod/
+```
+
+
+### 5. Start development server
+```bash
+npm run dev
+```
+
+### 6. Project Structure
+```bash
+src/
+├── pages/            # Main application pages
+├── components/       # Reusable components
+├── App.tsx           # Root component
+├── main.tsx          # Entry point
+amplify/              # AWS Amplify configuration
+public/               # Static assets
+```
+### 7.Project task breakdown
+- You can find the task breakdown via [Project Task Breakdown](https://docs.google.com/document/d/1Fhqj3rYH0xFZDrn77a9zdAPv6eyQ8uw8/edit?usp=sharing&ouid=110668639377071033626&rtpof=true&sd=true)

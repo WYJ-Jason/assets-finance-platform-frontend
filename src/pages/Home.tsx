@@ -1,7 +1,7 @@
-import { Authenticator } from "@aws-amplify/ui-react";
-import SideBar from "./SideBar";
-import { useState, useEffect } from "react";
-import { getCurrentUser } from "aws-amplify/auth";
+import { Authenticator } from '@aws-amplify/ui-react';
+import SideBar from './SideBar';
+import { useState, useEffect } from 'react';
+import { getCurrentUser } from 'aws-amplify/auth';
 
 interface UserInfo {
   id: string;
@@ -14,7 +14,7 @@ const Home: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(() => {
     const savedState = localStorage.getItem('sidebarCollapsed');
-    return savedState === 'true'; 
+    return savedState === 'true';
   });
 
   useEffect(() => {
@@ -24,12 +24,12 @@ const Home: React.FC = () => {
         const currentUser = await getCurrentUser();
         setUserInfo({
           id: currentUser.userId,
-          email: currentUser.signInDetails?.loginId || "",
-          role: "User",
+          email: currentUser.signInDetails?.loginId || '',
+          role: 'User',
         });
       } catch (error) {
-        console.error("Error:", error);
-        setError("Failed to fetch user information");
+        console.error('Error:', error);
+        setError('Failed to fetch user information');
         setUserInfo(null);
       }
     };
@@ -38,8 +38,8 @@ const Home: React.FC = () => {
   }, []);
 
   const getTitle = () => {
-    if (error) return "Dashboard";
-    return userInfo?.role ? `${userInfo.role} Dashboard` : "Dashboard";
+    if (error) return 'Dashboard';
+    return userInfo?.role ? `${userInfo.role} Dashboard` : 'Dashboard';
   };
 
   const handleSidebarCollapse = (collapsed: boolean) => {
@@ -52,17 +52,41 @@ const Home: React.FC = () => {
       <SideBar onCollapse={handleSidebarCollapse} />
       <div
         className={`flex-1 transition-margin duration-300 ease-in-out ${
-          sidebarCollapsed ? "ml-20" : "ml-64"
+          sidebarCollapsed ? 'ml-20' : 'ml-64'
         } bg-gray-100 min-h-screen`}
       >
         <Authenticator>
           <div className="p-8 h-full">
             <main className="h-full">
               <div className="mb-8 p-10 bg-white rounded-lg shadow-md relative overflow-hidden">
-                <h1 className="text-2xl font-semibold text-gray-800 mb-2">{getTitle()}</h1>
+                <div className="flex justify-between items-center mb-8">
+                  <h1 className="text-2xl font-semibold text-gray-800">{getTitle()}</h1>
+                  <a
+                    href="https://docs.google.com/document/d/1Fhqj3rYH0xFZDrn77a9zdAPv6eyQ8uw8/edit?usp=sharing&ouid=110668639377071033626&rtpof=true&sd=true"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors duration-200"
+                  >
+                    <svg
+                      className="w-5 h-5 mr-2"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                      ></path>
+                    </svg>
+                    Task Breakdown
+                  </a>
+                </div>
                 <p className="text-gray-600 text-lg leading-relaxed mb-8">
                   Welcome to Assets Finance Platform
-                  {userInfo ? `, ${userInfo.email}` : ""}
+                  {userInfo ? `, ${userInfo.email}` : ''}
                 </p>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
