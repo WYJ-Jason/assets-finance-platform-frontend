@@ -19,11 +19,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onCollapse }) => {
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [isCollapsed, setIsCollapsed] = useState(() => {
-    const savedState = localStorage.getItem('sidebarCollapsed');
-    if (window.innerWidth < 768) return true;
-    return savedState === 'true';
-  });
+  const [isCollapsed, setIsCollapsed] = useState(true);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
 
   useEffect(() => {
