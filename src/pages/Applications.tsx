@@ -157,7 +157,9 @@ const Applications: React.FC = () => {
       )}
 
       <div
-        className={`flex-1 transition-margin duration-300 ease-in-out ml-20 md:ml-64 bg-gray-100 min-h-screen pt-16 md:pt-0`}
+        className={`flex-1 transition-margin duration-300 ease-in-out ${
+          sidebarCollapsed ? 'ml-20' : 'ml-64'
+        } bg-gray-100 min-h-screen pt-16 md:pt-0`}
       >
         <Authenticator>
           <div className="p-4 md:p-8 h-full max-md:flex max-md:flex-col max-md:justify-center max-md:items-center">

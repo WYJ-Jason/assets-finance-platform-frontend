@@ -16,7 +16,7 @@ const Home: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
 
   // Initialize sidebar state from localStorage or default to false
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(() => {
+  const [_sidebarCollapsed, setSidebarCollapsed] = useState(() => {
     const savedState = localStorage.getItem('sidebarCollapsed');
     return savedState === 'true';
   });

@@ -62,7 +62,7 @@ const CreateApplications: React.FC = () => {
   const [currentStep, setCurrentStep] = useState(1);
 
   // State for sidebar collapse status, persisted in localStorage
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(() => {
+  const [_sidebarCollapsed, setSidebarCollapsed] = useState(() => {
     const savedState = localStorage.getItem('sidebarCollapsed');
     return savedState === 'true';
   });
