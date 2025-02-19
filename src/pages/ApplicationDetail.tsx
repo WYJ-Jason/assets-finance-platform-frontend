@@ -54,7 +54,7 @@ const ApplicationDetail: React.FC = () => {
   const [application, setApplication] = useState<ApplicationData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(() => {
+  const [_sidebarCollapsed, setSidebarCollapsed] = useState(() => {
     const savedState = localStorage.getItem('sidebarCollapsed');
     return savedState === 'true';
   });
@@ -236,9 +236,7 @@ const ApplicationDetail: React.FC = () => {
     <div className="flex min-h-screen w-full bg-gray-100">
       <SideBar onCollapse={handleSidebarCollapse} />
       <div
-        className={`flex-1 transition-margin duration-300 ease-in-out ml-20 ${
-          sidebarCollapsed ? 'md:ml-20' : 'md:ml-64'
-        } bg-gray-100 min-h-screen pt-16 md:pt-0`}
+        className={`flex-1 transition-margin duration-300 ease-in-out ml-20 md:ml-64 bg-gray-100 min-h-screen pt-16 md:pt-0`}
       >
         <Authenticator>
           <div className="p-4 md:p-8 h-full">
@@ -546,7 +544,10 @@ const ApplicationDetail: React.FC = () => {
 
                 {/* Edit form */}
                 {isEditing && editedApplication && (
-                  <div ref={editFormRef} className="mt-4 md:mt-8 bg-white rounded-lg shadow-lg p-4 md:p-8">
+                  <div
+                    ref={editFormRef}
+                    className="mt-4 md:mt-8 bg-white rounded-lg shadow-lg p-4 md:p-8"
+                  >
                     <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-4 md:mb-6">
                       <h3 className="text-xl md:text-2xl font-bold text-gray-800 mb-2 md:mb-0">
                         Update Application

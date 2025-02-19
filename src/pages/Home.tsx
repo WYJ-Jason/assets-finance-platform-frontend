@@ -16,7 +16,7 @@ const Home: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
 
   // Initialize sidebar state from localStorage or default to false
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(() => {
+  const [_sidebarCollapsed, setSidebarCollapsed] = useState(() => {
     const savedState = localStorage.getItem('sidebarCollapsed');
     return savedState === 'true';
   });
@@ -60,15 +60,8 @@ const Home: React.FC = () => {
       <SideBar onCollapse={handleSidebarCollapse} />
 
       {/* Main content area with dynamic margin based on sidebar state */}
-      {/* <div
-        className={`flex-1 transition-margin duration-300 ease-in-out ml-20 md:${
-          sidebarCollapsed ? 'ml-20' : 'ml-64'
-        } bg-gray-50 min-h-screen`}
-      > */}
       <div
-        className={`flex-1 transition-margin duration-300 ease-in-out ml-20 ${
-          sidebarCollapsed ? 'md:ml-20' : 'md:ml-64'
-        } bg-gray-100 min-h-screen pt-16 md:pt-0`}
+        className={`flex-1 transition-margin duration-300 ease-in-out ml-20 md:ml-64 bg-gray-100 min-h-screen pt-16 md:pt-0`}
       >
         {/* AWS Amplify Authenticator for authentication */}
         <Authenticator>
