@@ -8,12 +8,18 @@ import Applications from './pages/Applications';
 import CreateApplications from './pages/CreateApplications';
 import ApplicationDetail from './pages/ApplicationDetail';
 
+// Main application component using Function Component type
 const App: FC = () => {
   return (
     <div className="App">
+      {/* Set up browser router for client-side routing */}
       <BrowserRouter>
+        {/* Define route configuration */}
         <Routes>
+          {/* Default route - Login page */}
           <Route path="/" element={<Login />} />
+
+          {/* Protected route for Home page */}
           <Route
             path="/home"
             element={
@@ -22,6 +28,8 @@ const App: FC = () => {
               </ProtectedRoute>
             }
           />
+
+          {/* Protected route for Applications list page */}
           <Route
             path="/applications"
             element={
@@ -30,6 +38,8 @@ const App: FC = () => {
               </ProtectedRoute>
             }
           />
+
+          {/* Protected route for Create Application page */}
           <Route
             path="/create-application"
             element={
@@ -38,6 +48,8 @@ const App: FC = () => {
               </ProtectedRoute>
             }
           />
+
+          {/* Protected route for Application Detail page */}
           <Route
             path="/application"
             element={

@@ -5,20 +5,20 @@
   .sidebar-mobile {
     transform: translateX(-100%);
   }
-  
+
   .sidebar-mobile.open {
     transform: translateX(0);
   }
-  
+
   .main-content {
     margin-left: 0 !important;
     padding-top: 4rem;
   }
-  
+
   .stats-grid {
     grid-template-columns: repeat(1, 1fr) !important;
   }
-  
+
   .dashboard-card {
     padding: 1.5rem !important;
   }

@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
+// Define interfaces for the application data structure
 interface PersonalDetails {
   _id: string;
   name: string;
@@ -37,6 +38,7 @@ interface Liability {
   amount: number;
 }
 
+// Main application data interface that combines all components
 interface ApplicationData {
   _id: string;
   personalDetails: PersonalDetails;
@@ -61,6 +63,7 @@ const ApplicationDetail: React.FC = () => {
   const [editedApplication, setEditedApplication] = useState<ApplicationData | null>(null);
   const editFormRef = useRef<HTMLDivElement>(null);
 
+  // Fetch application details when component mounts
   useEffect(() => {
     const fetchApplicationDetail = async () => {
       try {
@@ -93,6 +96,7 @@ const ApplicationDetail: React.FC = () => {
     localStorage.setItem('sidebarCollapsed', JSON.stringify(collapsed));
   };
 
+  // Helper functions for formatting data
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat('en-AU', { style: 'currency', currency: 'AUD' }).format(amount);
   };
@@ -109,6 +113,7 @@ const ApplicationDetail: React.FC = () => {
     return liabilities.reduce((total, liability) => total + liability.amount, 0);
   };
 
+  // Function to handle application deletion
   const handleDelete = async () => {
     if (window.confirm('Are you sure you want to delete this application?')) {
       try {
@@ -121,11 +126,12 @@ const ApplicationDetail: React.FC = () => {
     }
   };
 
+  // Function to handle application updates
   const handleUpdate = async () => {
     if (!editedApplication) return;
 
     try {
-      // Create a formatted version of the application data, excluding _id fields
+      // Create a formatted version of the application data
       const formattedApplication = {
         personalDetails: {
           name: editedApplication.personalDetails.name,
@@ -172,18 +178,16 @@ const ApplicationDetail: React.FC = () => {
       }
     } catch (error: any) {
       console.error('Error updating application:', error);
-      // Add more detailed error logging
-      if (error.response) {
-        console.error('Error response data:', error.response.data);
-      }
       setError('Failed to update application');
     }
   };
 
+  // Function to add new items to different sections
   const addNewItem = (type: 'income' | 'expenses' | 'assets' | 'liabilities') => {
     if (!editedApplication) return;
 
     const newItem = {
+      // Create appropriate item based on type
       ...(type === 'income' && {
         source: '',
         amount: 0,
@@ -210,6 +214,7 @@ const ApplicationDetail: React.FC = () => {
     });
   };
 
+  // Function to remove items from different sections
   const removeItem = (type: 'income' | 'expenses' | 'assets' | 'liabilities', index: number) => {
     if (!editedApplication) return;
 
@@ -231,24 +236,27 @@ const ApplicationDetail: React.FC = () => {
     <div className="flex min-h-screen w-full bg-gray-100">
       <SideBar onCollapse={handleSidebarCollapse} />
       <div
-        className={`flex-1 transition-margin duration-300 ease-in-out ${
+        className={`flex-1 transition-margin duration-300 ease-in-out ml-20 md:${
           sidebarCollapsed ? 'ml-20' : 'ml-64'
-        } bg-gray-100 min-h-screen`}
+        } bg-gray-50 min-h-screen`}
       >
         <Authenticator>
           <div className="p-4 md:p-8 h-full">
+            {/* Loading state */}
             {loading && (
               <div className="text-center py-4">
                 <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto"></div>
               </div>
             )}
 
+            {/* Error state */}
             {error && (
               <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
                 {error}
               </div>
             )}
 
+            {/* Main application details */}
             {application && (
               <div className="space-y-4 md:space-y-6">
                 {/* Back Button */}
@@ -536,11 +544,13 @@ const ApplicationDetail: React.FC = () => {
                   </div>
                 </div>
 
-                {/* Edit Form Styling */}
+                {/* Edit form */}
                 {isEditing && editedApplication && (
                   <div ref={editFormRef} className="mt-4 md:mt-8 bg-white rounded-lg shadow-lg p-4 md:p-8">
                     <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-4 md:mb-6">
-                      <h3 className="text-xl md:text-2xl font-bold text-gray-800 mb-2 md:mb-0">Update Application</h3>
+                      <h3 className="text-xl md:text-2xl font-bold text-gray-800 mb-2 md:mb-0">
+                        Update Application
+                      </h3>
                       <div className="flex flex-col md:flex-row gap-2 md:gap-3 w-full md:w-auto">
                         <button
                           onClick={handleUpdate}
@@ -587,7 +597,9 @@ const ApplicationDetail: React.FC = () => {
                     <div className="space-y-4 md:space-y-8">
                       {/* Personal Details Form */}
                       <div className="bg-gray-50 p-4 md:p-6 rounded-lg">
-                        <h4 className="text-base md:text-lg font-semibold text-gray-800 mb-2 md:mb-4">Personal Details</h4>
+                        <h4 className="text-base md:text-lg font-semibold text-gray-800 mb-2 md:mb-4">
+                          Personal Details
+                        </h4>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                           <div>
                             <label className="block text-sm font-medium text-gray-700">Name</label>

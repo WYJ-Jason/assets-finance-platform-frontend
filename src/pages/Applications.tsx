@@ -5,6 +5,7 @@ import { getCurrentUser } from 'aws-amplify/auth';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
+// Interface definitions for data structures
 interface PersonalDetails {
   _id: string;
   name: string;
@@ -48,16 +49,20 @@ interface ApplicationData {
 }
 
 const Applications: React.FC = () => {
+  // State management for sidebar collapse status with localStorage persistence
   const [sidebarCollapsed, setSidebarCollapsed] = useState(() => {
     const savedState = localStorage.getItem('sidebarCollapsed');
     return savedState === 'true';
   });
+
+  // State management for applications data and UI states
   const [applications, setApplications] = useState<ApplicationData[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const navigate = useNavigate();
 
+  // Function to fetch user's applications from the API
   const fetchUserInfo = async () => {
     try {
       const currentUser = await getCurrentUser();
@@ -65,7 +70,10 @@ const Applications: React.FC = () => {
 
       if (userEmail) {
         setLoading(true);
-        const response = await axios.get(`${import.meta.env.VITE_API_ENDPOINT}read-apps?email=${userEmail}`);
+        // API call to get applications for the current user
+        const response = await axios.get(
+          `${import.meta.env.VITE_API_ENDPOINT}read-apps?email=${userEmail}`
+        );
 
         setApplications(response.data);
         setLoading(false);
@@ -77,31 +85,38 @@ const Applications: React.FC = () => {
     }
   };
 
+  // Effect hook to fetch applications when component mounts
   useEffect(() => {
     fetchUserInfo();
   }, []);
 
+  // Handler for sidebar collapse state
   const handleSidebarCollapsed = (collapsed: boolean) => {
     setSidebarCollapsed(collapsed);
     localStorage.setItem('sidebarCollapsed', JSON.stringify(collapsed));
   };
 
+  // Navigation handler for viewing application details
   const navigateToApplication = (applicationId: string) => {
     navigate(`/application?id=${applicationId}`);
   };
 
+  // Handler for deleting an application
   const handleDelete = async (applicationId: string, e: React.MouseEvent) => {
     e.stopPropagation();
     if (window.confirm('Are you sure you want to delete this application?')) {
       try {
+        // API call to delete application
         await axios.delete(`${import.meta.env.VITE_API_ENDPOINT}delete-apps?id=${applicationId}`, {
           headers: {
             'Content-Type': 'application/json',
             Accept: 'application/json',
           },
         });
+        // Update state to remove deleted application
         setApplications(applications.filter(app => app._id !== applicationId));
         setSuccessMessage('Application deleted successfully');
+        // Clear success message after 3 seconds
         setTimeout(() => {
           setSuccessMessage(null);
         }, 3000);
@@ -112,9 +127,12 @@ const Applications: React.FC = () => {
     }
   };
 
+  // Main component render
   return (
     <div className="flex min-h-screen w-full bg-gray-50">
       <SideBar onCollapse={handleSidebarCollapsed} />
+      
+      {/* Success message notification */}
       {successMessage && (
         <div className="fixed top-1 right-4 z-50 animate-fade-in-down">
           <div className="bg-green-50 border-l-4 border-green-500 p-2 rounded-lg shadow-lg">
@@ -137,18 +155,22 @@ const Applications: React.FC = () => {
           </div>
         </div>
       )}
-      <div
-        className={`flex-1 transition-margin duration-300 ease-in-out ${
+
+      <div className={`flex-1 transition-margin duration-300 ease-in-out ml-20 md:${
           sidebarCollapsed ? 'ml-20' : 'ml-64'
-        } bg-gray-50 min-h-screen`}
-      >
+        } bg-gray-50 min-h-screen`}>
         <Authenticator>
-          <div className="p-4 md:p-8 h-full">
+          <div className="p-4 md:p-8 h-full max-md:flex max-md:flex-col max-md:justify-center max-md:items-center">
             <main className="h-full space-y-4 md:space-y-6">
+              {/* Header section with title and create button */}
               <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-4 md:mb-8">
                 <div className="mb-4 md:mb-0">
-                  <h1 className="text-2xl md:text-3xl font-bold text-gray-800 mb-2">Financial Applications</h1>
-                  <p className="text-sm md:text-base text-gray-600">Manage and review your financial applications</p>
+                  <h1 className="text-2xl md:text-3xl font-bold text-gray-800 mb-2">
+                    Financial Applications
+                  </h1>
+                  <p className="text-sm md:text-base text-gray-600">
+                    Manage and review your financial applications
+                  </p>
                 </div>
                 <button
                   onClick={() => navigate('/create-application')}
@@ -170,12 +192,14 @@ const Applications: React.FC = () => {
                 </button>
               </div>
 
+              {/* Loading spinner */}
               {loading && (
                 <div className="flex items-center justify-center py-8">
                   <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-blue-600"></div>
                 </div>
               )}
 
+              {/* Error message display */}
               {error && (
                 <div className="bg-red-50 border-l-4 border-red-500 p-4 rounded-lg">
                   <div className="flex items-center">
@@ -197,6 +221,7 @@ const Applications: React.FC = () => {
                 </div>
               )}
 
+              {/* Applications list grid */}
               <div className="grid gap-4 md:gap-6">
                 {applications.map(app => (
                   <div
