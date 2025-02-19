@@ -599,9 +599,9 @@ const CreateApplications: React.FC = () => {
     <div className="flex min-h-screen w-full bg-gray-100">
       <SideBar onCollapse={handleSidebarCollapse} />
       <div
-        className={`flex-1 transition-margin duration-300 ease-in-out ml-20 md:${
-          sidebarCollapsed ? 'ml-20' : 'ml-64'
-        } bg-gray-50 min-h-screen`}
+        className={`flex-1 transition-margin duration-300 ease-in-out ml-20 ${
+          sidebarCollapsed ? 'md:ml-20' : 'md:ml-64'
+        } bg-gray-100 min-h-screen pt-16 md:pt-0`}
       >
         <Authenticator>
           <div className="p-4 md:p-8 h-full">
