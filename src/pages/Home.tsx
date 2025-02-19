@@ -3,6 +3,7 @@ import SideBar from './SideBar';
 import { useState, useEffect } from 'react';
 import { getCurrentUser } from 'aws-amplify/auth';
 
+// Define interface for user information
 interface UserInfo {
   id: string;
   email: string;
@@ -10,13 +11,17 @@ interface UserInfo {
 }
 
 const Home: React.FC = () => {
+  // State management for user information, error handling, and sidebar state
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
   const [error, setError] = useState<string | null>(null);
+
+  // Initialize sidebar state from localStorage or default to false
   const [sidebarCollapsed, setSidebarCollapsed] = useState(() => {
     const savedState = localStorage.getItem('sidebarCollapsed');
     return savedState === 'true';
   });
 
+  // Fetch user information when component mounts
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
@@ -37,11 +42,13 @@ const Home: React.FC = () => {
     fetchUserInfo();
   }, []);
 
+  // Generate page title based on user role or error state
   const getTitle = () => {
     if (error) return 'Dashboard';
     return userInfo?.role ? `${userInfo.role} Dashboard` : 'Dashboard';
   };
 
+  // Handle sidebar collapse state and persist to localStorage
   const handleSidebarCollapse = (collapsed: boolean) => {
     setSidebarCollapsed(collapsed);
     localStorage.setItem('sidebarCollapsed', JSON.stringify(collapsed));
@@ -49,16 +56,22 @@ const Home: React.FC = () => {
 
   return (
     <div className="flex min-h-screen w-full bg-gray-100">
+      {/* Sidebar component with collapse handler */}
       <SideBar onCollapse={handleSidebarCollapse} />
+
+      {/* Main content area with dynamic margin based on sidebar state */}
       <div
-        className={`flex-1 transition-margin duration-300 ease-in-out ${
-          sidebarCollapsed ? 'md:ml-20' : 'md:ml-64'
-        } bg-gray-100 min-h-screen pt-16 md:pt-0`}
+        className={`flex-1 transition-margin duration-300 ease-in-out ml-20 md:${
+          sidebarCollapsed ? 'ml-20' : 'ml-64'
+        } bg-gray-50 min-h-screen`}
       >
+        {/* AWS Amplify Authenticator for authentication */}
         <Authenticator>
           <div className="p-4 md:p-8 h-full">
             <main className="h-full">
+              {/* Main content container */}
               <div className="mb-8 p-4 md:p-10 bg-white rounded-lg shadow-md relative overflow-hidden">
+                {/* Header section with title and task breakdown link */}
                 <div className="flex justify-between items-center mb-8">
                   <h1 className="text-2xl font-semibold text-gray-800">{getTitle()}</h1>
                   <a
@@ -67,6 +80,7 @@ const Home: React.FC = () => {
                     rel="noopener noreferrer"
                     className="inline-flex items-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors duration-200"
                   >
+                    {/* Task Breakdown button with icon */}
                     <svg
                       className="w-5 h-5 mr-2"
                       fill="none"
@@ -84,35 +98,44 @@ const Home: React.FC = () => {
                     Task Breakdown
                   </a>
                 </div>
+
+                {/* Welcome message with conditional user email display */}
                 <p className="text-gray-600 text-lg leading-relaxed mb-8">
                   Welcome to Assets Finance Platform
                   {userInfo ? `, ${userInfo.email}` : ''}
                 </p>
 
+                {/* Statistics grid with different status cards */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-8">
+                  {/* Total Applications card */}
                   <div className="bg-blue-50 p-6 rounded-lg border border-blue-100">
                     <h3 className="text-blue-600 text-lg font-medium mb-2">Total Applications</h3>
                     <p className="text-3xl font-bold text-blue-700">24</p>
                   </div>
+                  {/* Approved Applications card */}
                   <div className="bg-green-50 p-6 rounded-lg border border-green-100">
                     <h3 className="text-green-600 text-lg font-medium mb-2">Approved</h3>
                     <p className="text-3xl font-bold text-green-700">16</p>
                   </div>
+                  {/* Pending Applications card */}
                   <div className="bg-yellow-50 p-6 rounded-lg border border-yellow-100">
                     <h3 className="text-yellow-600 text-lg font-medium mb-2">Pending</h3>
                     <p className="text-3xl font-bold text-yellow-700">5</p>
                   </div>
+                  {/* Rejected Applications card */}
                   <div className="bg-red-50 p-6 rounded-lg border border-red-100">
                     <h3 className="text-red-600 text-lg font-medium mb-2">Rejected</h3>
                     <p className="text-3xl font-bold text-red-700">3</p>
                   </div>
                 </div>
 
+                {/* Recent Activities section */}
                 <div className="bg-white rounded-lg border border-gray-200">
                   <div className="p-4 border-b border-gray-200">
                     <h2 className="text-xl font-semibold text-gray-800">Recent Activities</h2>
                   </div>
                   <div className="divide-y divide-gray-200">
+                    {/* Individual activity items */}
                     <div className="p-4 hover:bg-gray-50">
                       <div className="flex items-center">
                         <div className="w-2 h-2 bg-green-500 rounded-full mr-3"></div>

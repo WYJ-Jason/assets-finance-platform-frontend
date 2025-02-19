@@ -4,10 +4,12 @@ import { signOut, getCurrentUser } from 'aws-amplify/auth';
 import { useState, useEffect } from 'react';
 import { FaHome, FaSignOutAlt, FaBars, FaChevronLeft, FaChartBar, FaTimes } from 'react-icons/fa';
 
+// Interface defining the props for the Sidebar component
 interface SidebarProps {
   onCollapse?: (collapsed: boolean) => void;
 }
 
+// Interface defining the structure of user information
 interface UserInfo {
   id: string;
   email: string;
@@ -16,12 +18,18 @@ interface UserInfo {
 
 const Sidebar: React.FC<SidebarProps> = ({ onCollapse }) => {
   const navigate = useNavigate();
+  // State for storing user information
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
+  // Loading state for user data fetch
   const [isLoading, setIsLoading] = useState(true);
+  // Error state for user data fetch
   const [error, setError] = useState<string | null>(null);
+  // State for collapsed/expanded sidebar
   const [isCollapsed, setIsCollapsed] = useState(true);
+  // State for mobile menu visibility
   const [isMobileOpen, setIsMobileOpen] = useState(false);
 
+  // Effect to fetch user information when component mounts
   useEffect(() => {
     const fetchUserInfo = async () => {
       setIsLoading(true);
@@ -46,15 +54,17 @@ const Sidebar: React.FC<SidebarProps> = ({ onCollapse }) => {
     fetchUserInfo();
   }, []);
 
+  // Function to handle sidebar collapse/expand
   const handleCollapse = () => {
     if (window.innerWidth < 768) return;
-    
+
     const newCollapsed = !isCollapsed;
     setIsCollapsed(newCollapsed);
     onCollapse?.(newCollapsed);
     localStorage.setItem('sidebarCollapsed', newCollapsed.toString());
   };
 
+  // Function to handle user sign out
   const handleSignOut = async () => {
     try {
       await signOut();
@@ -64,6 +74,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onCollapse }) => {
     }
   };
 
+  // Function to handle mobile menu toggle
   const handleMobileToggle = () => {
     setIsMobileOpen(!isMobileOpen);
     if (window.innerWidth < 768) {
@@ -71,6 +82,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onCollapse }) => {
     }
   };
 
+  // Function to render user information
   const renderUserInfo = () => {
     if (isLoading) return <span className="text-gray-400">Loading...</span>;
     if (error) return <span className="text-red-500">{error}</span>;
@@ -89,6 +101,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onCollapse }) => {
             <FaBars className="text-xl" />
           </button>
 
+          {/* Main sidebar container */}
           <div
             className={`fixed left-0 top-0 h-screen ${
               isCollapsed ? '50px' : 'w-[250px]'
@@ -103,6 +116,8 @@ const Sidebar: React.FC<SidebarProps> = ({ onCollapse }) => {
             >
               <FaTimes className="text-xl" />
             </button>
+
+            {/* Sidebar header section */}
             <div
               className="p-5 hidden md:flex items-center justify-between border-b border-white/10 h-[70px] cursor-pointer transition-colors bg-transparent mb-8 hover:bg-white/10"
               onClick={handleCollapse}
@@ -122,6 +137,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onCollapse }) => {
               )}
             </div>
 
+            {/* User information section */}
             <div
               className={`p-5 border-b border-white/10 transition-all ${
                 isCollapsed ? 'p-2.5 flex justify-center' : ''
@@ -137,6 +153,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onCollapse }) => {
               </div>
             </div>
 
+            {/* Navigation links */}
             <nav className="flex-1 py-5">
               <Link
                 to="/home"
@@ -166,13 +183,14 @@ const Sidebar: React.FC<SidebarProps> = ({ onCollapse }) => {
               </Link>
             </nav>
 
+            {/* Footer section */}
             {!isCollapsed && (
               <div className="mt-auto p-5 border-t border-black/10 bg-white/5">
                 <div className="mb-4 flex flex-col items-center gap-4 p-2 bg-black/5 rounded-lg">
                   <div className="flex justify-center w-full p-2 bg-white rounded-md">
                     <Image
                       src="/Logo-wyj.png"
-                      alt="Daimlinc Logo"
+                      alt="Jason Logo"
                       className="h-[35px] w-auto max-w-[100px] object-contain"
                     />
                   </div>
@@ -183,6 +201,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onCollapse }) => {
               </div>
             )}
 
+            {/* Sign out button */}
             <button
               className="w-full flex items-center justify-center gap-2 bg-red-600 p-2 !rounded-md cursor-pointer transition-all duration-300 mt-auto text-white hover:bg-red-500"
               onClick={handleSignOut}

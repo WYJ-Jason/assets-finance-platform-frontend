@@ -5,10 +5,12 @@ import SideBar from './SideBar';
 import { getCurrentUser } from 'aws-amplify/auth';
 import axios from 'axios';
 
+// Interface defining the structure of the application form data
+// This ensures type safety and consistency throughout the form handling
 interface FormData {
   personalDetails: {
     name: string;
-    age: number | null;
+    age: number | null; // Nullable to handle empty inputs
     email: string;
   };
   income: {
@@ -31,6 +33,7 @@ interface FormData {
   }[];
 }
 
+// Persistence functions for form progress
 const saveFormProgress = (data: FormData) => {
   try {
     localStorage.setItem('applicationFormProgress', JSON.stringify(data));
@@ -53,14 +56,18 @@ const clearFormProgress = () => {
   localStorage.removeItem('applicationFormProgress');
 };
 
+// Main component for creating applications
 const CreateApplications: React.FC = () => {
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(1);
+  
+  // State for sidebar collapse status, persisted in localStorage
   const [sidebarCollapsed, setSidebarCollapsed] = useState(() => {
     const savedState = localStorage.getItem('sidebarCollapsed');
     return savedState === 'true';
   });
 
+  // Form data state, initialized with saved progress or default values
   const [formData, setFormData] = useState<FormData>(() => {
     const savedProgress = loadFormProgress();
     if (savedProgress) {
@@ -81,12 +88,12 @@ const CreateApplications: React.FC = () => {
 
   const [validationErrors, setValidationErrors] = useState<string[]>([]);
 
+  // Fetch and set the authenticated user's email
   useEffect(() => {
     const fetchUserEmail = async () => {
       try {
         const currentUser = await getCurrentUser();
         const userEmail = currentUser.signInDetails?.loginId || '';
-
         setFormData(prev => ({
           ...prev,
           personalDetails: {
@@ -98,10 +105,10 @@ const CreateApplications: React.FC = () => {
         console.error('Error fetching user email:', error);
       }
     };
-
     fetchUserEmail();
   }, []);
 
+  // Save form progress whenever formData changes
   useEffect(() => {
     saveFormProgress(formData);
   }, [formData]);
@@ -111,6 +118,7 @@ const CreateApplications: React.FC = () => {
     localStorage.setItem('sidebarCollapsed', JSON.stringify(collapsed));
   };
 
+  // Handler for personal details input changes
   const handlePersonalDetailsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({
@@ -122,6 +130,7 @@ const CreateApplications: React.FC = () => {
     }));
   };
 
+  // Handler for array field changes (income, expenses, assets, liabilities)
   const handleArrayFieldChange = (
     section: 'income' | 'expenses' | 'assets' | 'liabilities',
     index: number,
@@ -146,6 +155,7 @@ const CreateApplications: React.FC = () => {
     }));
   };
 
+  // Function to add new fields to array sections
   const addArrayField = (section: 'income' | 'expenses' | 'assets' | 'liabilities') => {
     const newField = {
       income: { source: '', amount: null, date: '' },
@@ -176,11 +186,13 @@ const CreateApplications: React.FC = () => {
     }
   };
 
+  // Function to submit the application
   const handleSubmit = async () => {
     try {
       const currentUser = await getCurrentUser();
       const userEmail = currentUser.signInDetails?.loginId || '';
 
+      // Prepare submission data with default values for null fields
       const submissionData = {
         ...formData,
         personalDetails: {
@@ -206,6 +218,7 @@ const CreateApplications: React.FC = () => {
         })),
       };
 
+      // Send POST request to create application
       const response = await axios.post(
         `${import.meta.env.VITE_API_ENDPOINT}create-apps`,
         submissionData,
@@ -494,6 +507,7 @@ const CreateApplications: React.FC = () => {
     }
   };
 
+  // Component to render the progress bar
   const renderProgressBar = () => (
     <div className="mb-10">
       <div className="relative">
@@ -585,9 +599,9 @@ const CreateApplications: React.FC = () => {
     <div className="flex min-h-screen w-full bg-gray-100">
       <SideBar onCollapse={handleSidebarCollapse} />
       <div
-        className={`flex-1 transition-margin duration-300 ease-in-out ${
+        className={`flex-1 transition-margin duration-300 ease-in-out ml-20 md:${
           sidebarCollapsed ? 'ml-20' : 'ml-64'
-        } bg-gray-100 min-h-screen`}
+        } bg-gray-50 min-h-screen`}
       >
         <Authenticator>
           <div className="p-4 md:p-8 h-full">
