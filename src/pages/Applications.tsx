@@ -129,9 +129,9 @@ const Applications: React.FC = () => {
 
   // Main component render
   return (
-    <div className="flex min-h-screen w-full bg-gray-50">
+    <div className="flex min-h-screen w-full bg-gray-100">
       <SideBar onCollapse={handleSidebarCollapsed} />
-      
+
       {/* Success message notification */}
       {successMessage && (
         <div className="fixed top-1 right-4 z-50 animate-fade-in-down">
@@ -156,10 +156,8 @@ const Applications: React.FC = () => {
         </div>
       )}
 
-<div
-        className={`flex-1 transition-margin duration-300 ease-in-out ml-20 ${
-          sidebarCollapsed ? 'md:ml-20' : 'md:ml-64'
-        } bg-gray-100 min-h-screen pt-16 md:pt-0`}
+      <div
+        className={`flex-1 transition-margin duration-300 ease-in-out ml-20 md:ml-64 bg-gray-100 min-h-screen pt-16 md:pt-0`}
       >
         <Authenticator>
           <div className="p-4 md:p-8 h-full max-md:flex max-md:flex-col max-md:justify-center max-md:items-center">
